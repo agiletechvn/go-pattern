@@ -1,4 +1,4 @@
-package bounded_parallelism
+package main
 
 import (
 	"crypto/md5"
@@ -105,7 +105,14 @@ func MD5All(root string) (map[string][md5.Size]byte, error) {
 func main() {
 	// Calculate the MD5 sum of all files under the specified directory,
 	// then print the results sorted by path name.
-	m, err := MD5All(os.Args[1])
+	var rootPath string
+	if len(os.Args) > 0 {
+		// current directory
+		rootPath = "./"
+	} else {
+		rootPath = os.Args[1]
+	}
+	m, err := MD5All(rootPath)
 	if err != nil {
 		fmt.Println(err)
 		return
